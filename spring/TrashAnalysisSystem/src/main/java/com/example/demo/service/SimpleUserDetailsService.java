@@ -20,11 +20,10 @@ public class SimpleUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserDetails userDetails = userRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
             .map(SimpleLoginUser::new)
             .orElseThrow(() -> {
                 return new UsernameNotFoundException("user not found");
             });
-        return userDetails;
     }
 }

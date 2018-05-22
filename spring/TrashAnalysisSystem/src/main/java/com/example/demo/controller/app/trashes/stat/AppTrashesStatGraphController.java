@@ -1,7 +1,5 @@
 package com.example.demo.controller.app.trashes.stat;
 
-import java.util.*;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
