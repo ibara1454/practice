@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: net.sf.log4jdbc.DriverSpy
+    url: jdbc:log4jdbc:mysql://localhost/tas?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=JST
+    username: root
+    password: yahoo
+    initialization-mode: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+security:
+  basic:
+    enabled: false
+# spring.h2.console.enabled: true

@@ -1,0 +1,12 @@
+extends layout
+block content
+    form(method='POST', action='/authenticate')
+        .form-group
+            label(for=username) Email:
+            input(type='text', value='', name='email')
+        .form-group
+            label(for=password) Password:
+            input(type='password', value='', name='password')
+        .form-group
+            input(type='submit', value='Login', name='submit')
+        include /csrf
