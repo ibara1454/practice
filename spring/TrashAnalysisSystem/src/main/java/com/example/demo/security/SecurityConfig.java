@@ -9,12 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @EnableWebSecurity
@@ -46,7 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true) // Remove login session (?)
                 .deleteCookies("JSESSIONID") // Remove cookie
-                // .logoutSuccessHandler(logoutSuccessHandler())
                 .logoutSuccessUrl("/login")
             .and()
             // CSRF
@@ -56,26 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
             ;
 
-    }
-
-    private AuthenticationEntryPoint authenticationEntryPoint() {
-        return new SimpleAuthenticationEntryPoint();
-    }
-
-    private AccessDeniedHandler accessDeniedHandler() {
-        return new SimpleAccessDeniedHandler();
-    }
-
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new SimpleAuthenticationSuccessHandler();
-    }
-
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new SimpleAuthenticationFailureHandler();
-    }
-
-    public LogoutSuccessHandler logoutSuccessHandler() {
-        return new HttpStatusReturningLogoutSuccessHandler();
     }
 
     @Autowired

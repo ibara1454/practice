@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @MappedSuperclass
 public class BaseEntity implements Serializable {
     protected static final long serialVersionUID = 1L;
@@ -17,5 +15,9 @@ public class BaseEntity implements Serializable {
 
     public Integer getId() {
         return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

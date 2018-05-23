@@ -6,6 +6,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import java.util.List;
 
 public class SimpleLoginUser extends org.springframework.security.core.userdetails.User {
+    private static final long serialVersionUID = 1L;
+
     private com.example.demo.domain.User user;
     // In default, all users are not admin
     private static final boolean isAdmin = false;
