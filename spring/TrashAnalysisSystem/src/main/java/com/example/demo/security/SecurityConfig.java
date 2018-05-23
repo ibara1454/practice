@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @EnableWebSecurity
@@ -23,8 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .mvcMatchers("/hello/**")
-                .permitAll()
+            // .mvcMatchers()
+            //     .permitAll()
             .anyRequest()
                 .authenticated()
             .and()
@@ -52,9 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             // CSRF
             .csrf()
-                .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
+                // .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
                 // .csrfTokenRepository(new CookieCsrfTokenRepository())
-                // .disable()
+                .disable()
             ;
 
     }

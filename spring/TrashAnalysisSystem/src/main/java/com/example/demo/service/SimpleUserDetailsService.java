@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.SimpleLoginUser;
+import com.example.demo.domain.SimpleLoginUser;
 import com.example.demo.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
 public class BaseController {
-    @ModelAttribute("_csrf")
-    public String setCsrfToken(HttpServletRequest request) {
-        DefaultCsrfToken token = (DefaultCsrfToken) request.getAttribute("_csrf");
-        return token.getToken();
-    }
+    // @ModelAttribute("_csrf")
+    // public String setCsrfToken(HttpServletRequest request) {
+    //     DefaultCsrfToken token = (DefaultCsrfToken) request.getAttribute("_csrf");
+    //     return token.getToken();
+    // }
 }

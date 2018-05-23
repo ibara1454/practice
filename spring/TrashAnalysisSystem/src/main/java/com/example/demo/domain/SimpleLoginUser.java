@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import java.util.List;
 
 public class SimpleLoginUser extends org.springframework.security.core.userdetails.User {
-    private com.example.demo.model.User user;
+    private com.example.demo.domain.User user;
     // In default, all users are not admin
     private static final boolean isAdmin = false;
 
@@ -14,7 +14,7 @@ public class SimpleLoginUser extends org.springframework.security.core.userdetai
         return this.user;
     }
 
-    public SimpleLoginUser(com.example.demo.model.User user) {
+    public SimpleLoginUser(com.example.demo.domain.User user) {
         super(user.getEmail(), user.getPassword(), determineRoles(isAdmin));
         this.user = user;
     }

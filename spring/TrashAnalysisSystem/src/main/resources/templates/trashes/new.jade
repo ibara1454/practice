@@ -1,0 +1,34 @@
+extends /layout
+
+block content
+    include /partial/header
+
+    form(action="/trashes/new", method="post")
+        .form-group
+            label(for='categoryId') 種類
+            label.radio
+                input(type='radio', value='1', checked, name='categoryId')
+                | 燃える
+            label.radio
+                input(type='radio', value='2', name='categoryId')
+                | 燃えない
+            label.radio
+                input(type='radio', value='3', name='categoryId')
+                | 紙・布類
+            label.radio
+                input(type='radio', value='4', name='categoryId')
+                | びん・かん
+            label.radio
+                input(type='radio', value='5', name='categoryId')
+                | ペットボトル
+            label.radio
+                input(type='radio', value='6', name='categoryId')
+                | その他
+        .form-group
+            label(for='capacity') 容量
+            input(type='text', value='', placeholder='5.0', name='capacity')
+        .form-group
+            label(for='weight') 重さ
+            input(type='text', value='', placeholder='5.0', name='weight')
+        .form-group
+            input(type='submit', value='登録', name='submit')
