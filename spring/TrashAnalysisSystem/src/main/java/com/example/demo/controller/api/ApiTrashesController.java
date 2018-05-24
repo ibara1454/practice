@@ -3,6 +3,7 @@ package com.example.demo.controller.api;
 import com.example.demo.controller.BaseAuthenicatedController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Trash;
 import com.example.demo.domain.Trash_;
-import com.example.demo.repository.TrashRepository;
+import com.example.demo.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 public class ApiTrashesController extends BaseAuthenicatedController {
     @Autowired
     private TrashRepository trashRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private EntityManager entityManager;
 
@@ -61,7 +64,7 @@ public class ApiTrashesController extends BaseAuthenicatedController {
     // Search Methods
     //
 
-    /**  Filter of index
+    /**  Filter of all trash records
      *
      *   year := find records matches year
      *   month := find records matches month
@@ -136,19 +139,49 @@ public class ApiTrashesController extends BaseAuthenicatedController {
             .orElse(0.0);
     }
 
-    /**
-     *  Calculate the average of weight of trashes
-     */
-    @GetMapping(path = "sum")
-    public Double sumWeight(@RequestParam("year") Optional<Integer> year,
-                            @RequestParam("month") Optional<Integer> month,
-                            @RequestParam("day") Optional<Integer> day,
-                            @RequestParam("category") Optional<Integer> category,
-                            @RequestParam("all") Optional<Boolean> all) {
-        return search(year, month, day, category, all)
+    // /**
+    //  *  Calculate the average of weight of trashes
+    //  */
+    // @GetMapping(path = "sum")
+    // public Double sumWeight(@RequestParam("year") Optional<Integer> year,
+    //                         @RequestParam("month") Optional<Integer> month,
+    //                         @RequestParam("day") Optional<Integer> day,
+    //                         @RequestParam("category") Optional<Integer> category,
+    //                         @RequestParam("all") Optional<Boolean> all) {
+    //     return search(year, month, day, category, all)
+    //         .stream()
+    //         .map(Trash::getWeight)
+    //         .mapToDouble(Double::doubleValue)
+    //         .sum();
+    // }
+
+    @GetMapping(path = "mytotal")
+    public List<Double> myTotal(@RequestParam("year") Integer year) {
+        Optional<Integer> empty = Optional.empty();
+        return search(Optional.of(year), empty, empty, empty, Optional.of(false))
             .stream()
-            .map(Trash::getWeight)
-            .mapToDouble(Double::doubleValue)
-            .sum();
+            .collect(Collectors.groupingBy(t -> t.getDate().getMonthValue(), Collectors.mapping(Trash::getWeight, Collectors.toList())))
+            .entrySet()
+            .stream()
+            .sorted(java.util.Map.Entry.comparingByKey())
+            .map(java.util.Map.Entry::getValue)
+            .map(dl -> dl.stream().mapToDouble(Double::doubleValue).sum())
+            .collect(Collectors.toList());
+    }
+
+    // TODO: Refactoring. Bad performance and may cause overflow
+    @GetMapping(path = "alltotal")
+    public List<Double> allTotal(@RequestParam("year") Integer year) {
+        int users = (int)userRepository.count();
+        Optional<Integer> empty = Optional.empty();
+        return search(Optional.of(year), empty, empty, empty, Optional.of(true))
+            .stream()
+            .collect(Collectors.groupingBy(t -> t.getDate().getMonthValue(), Collectors.mapping(Trash::getWeight, Collectors.toList())))
+            .entrySet()
+            .stream()
+            .sorted(java.util.Map.Entry.comparingByKey())
+            .map(java.util.Map.Entry::getValue)
+            .map(dl -> dl.stream().mapToDouble(Double::doubleValue).sum() / users)
+            .collect(Collectors.toList());
     }
 }
