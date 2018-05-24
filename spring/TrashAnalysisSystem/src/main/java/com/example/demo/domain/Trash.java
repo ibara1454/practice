@@ -37,7 +37,7 @@ public class Trash extends BaseEntity {
     private Double weight;
 
     // Set default value (empty string) instead of using 'columnDefinition'
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String memo = "";
 
     public Trash() {
