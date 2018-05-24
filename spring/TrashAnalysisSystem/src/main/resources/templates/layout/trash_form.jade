@@ -1,0 +1,25 @@
+extends /layout/main
+
+block content
+    //- Magic:
+    //- A little tricky. This will shows "/app/trashes" if id is not given
+    form(action="/app/trashes/#{id}", method="post")
+        block secret
+        .form-group
+            #date-picker
+                label(for='date') 日付
+                input(type='text', placeholder='', value="#{trash.getDate()}", name='date')
+        .form-group
+            label(for='category') 種類
+            for na, index in ['燃える', '燃えない', '紙・布類', 'びん・かん', 'ペットボトル', 'その他']
+                label.radio
+                    input(type="radio", name="category", value="#{index + 1}", checked=(trash.getCategory().getId() == index + 1 ? "checked" : null))
+                    | #{na}
+        .form-group
+            label(for='capacity') 容量
+            input(type='text', value='#{trash.getCapacity()}', placeholder='5.0', name='capacity')
+        .form-group
+            label(for='weight') 重さ
+            input(type='text', value='#{trash.getWeight()}', placeholder='5.0', name='weight')
+        .form-group
+            block submit

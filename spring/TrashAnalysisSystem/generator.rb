@@ -29,5 +29,5 @@ rand_w = ->{rand(0.1, 5.0)}
     d = rand_d[]
     c = rand_c[]
     w = (cw_table[1] * c).round(3)
-    puts "('#{u}', '#{t}', CAST('#{d}' as DATE), '#{c}', '#{w}'),"
+    puts "('#{u}', '#{t}', CAST('#{d}' as DATE), '#{c}', '#{w}', ''),"
 end

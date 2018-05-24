@@ -8,6 +8,8 @@ import com.example.demo.converter.LocalDateConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "trashes")
 public class Trash extends BaseEntity {
@@ -17,19 +19,26 @@ public class Trash extends BaseEntity {
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id", referencedColumnName = "id")
     private User user;
+
     @ManyToOne
     @JoinColumn(nullable = false, name = "category_id", referencedColumnName = "id")
     private Category category;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+
+    @JsonFormat(pattern = "yyyy-MM-dd") // For transforming to json
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // For transforming form fields to LocalDate type
     @Column(nullable = false)
     @Convert(converter = LocalDateConverter.class)
     private LocalDate date;
+
     @Column(nullable = true)
     private Double capacity;
+
     @Column(nullable = false)
     private Double weight;
+
+    // Set default value (empty string) instead of using 'columnDefinition'
     @Column(nullable = true)
-    private String memo;
+    private String memo = "";
 
     public Trash() {
     }
@@ -80,5 +89,13 @@ public class Trash extends BaseEntity {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "Trash(id=%d, category='%s', user=%s, capacity=%f, weight=%f, memo='%s')",
+            id, category, user, capacity, weight, memo
+        );
     }
 }
