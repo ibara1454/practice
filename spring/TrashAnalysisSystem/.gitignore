@@ -28,3 +28,6 @@
 
 ### Built Files ###
 /bin/
+
+### node modules ###
+/node_modules/
