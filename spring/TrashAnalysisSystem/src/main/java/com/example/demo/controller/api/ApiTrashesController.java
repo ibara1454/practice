@@ -135,4 +135,20 @@ public class ApiTrashesController extends BaseAuthenicatedController {
             .average()
             .orElse(0.0);
     }
+
+    /**
+     *  Calculate the average of weight of trashes
+     */
+    @GetMapping(path = "sum")
+    public Double sumWeight(@RequestParam("year") Optional<Integer> year,
+                            @RequestParam("month") Optional<Integer> month,
+                            @RequestParam("day") Optional<Integer> day,
+                            @RequestParam("category") Optional<Integer> category,
+                            @RequestParam("all") Optional<Boolean> all) {
+        return search(year, month, day, category, all)
+            .stream()
+            .map(Trash::getWeight)
+            .mapToDouble(Double::doubleValue)
+            .sum();
+    }
 }

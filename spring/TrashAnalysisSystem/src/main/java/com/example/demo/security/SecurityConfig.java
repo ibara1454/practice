@@ -48,7 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // .csrfTokenRepository(new CookieCsrfTokenRepository())
                 .disable()
             ;
-
     }
 
     @Autowired

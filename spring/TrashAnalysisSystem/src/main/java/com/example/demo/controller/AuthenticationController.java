@@ -11,13 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(path = "/")
 public class AuthenticationController {
-    @ModelAttribute
-    public User setUpForm() {
-        return new User();
-    }
-
     @GetMapping(path = "login")
-    public String login(Model model) {
+    public String login() {
         return "login";
     }
 }

@@ -1,0 +1,10 @@
+extends /layout/main
+
+block asset
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.js")
+block content
+    canvas#chart(width="600", height="300")
+
+block lazy_asset
+    script(src="/build_chart.js")
