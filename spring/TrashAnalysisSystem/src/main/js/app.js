@@ -1,8 +1,10 @@
-var ctx = document.getElementById("chart");
+import Chart from 'chart.js';
+import 'babel-polyfill';
+import 'whatwg-fetch';
 
-fetch("/api/trashes?all=true").then();
+const canvas = document.getElementById('chart');
 
-var myLine2Chart = new Chart(ctx, {
+const myLine2Chart = new Chart(canvas, {
   //グラフの種類
   type: 'line',
   //データの設定
@@ -91,3 +93,12 @@ var myLine2Chart = new Chart(ctx, {
     }
   }
 });
+
+// const data = await fetch('/api/trashes/1');
+async function sample() {
+  const res = await fetch('/api/trashes?year=2018', {credentials: "same-origin"});
+  return await res.json();
+}
+
+sample().then(x => console.log(x));
+
