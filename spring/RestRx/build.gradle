@@ -1,0 +1,40 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.14.BUILD-SNAPSHOT'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('io.reactivex.rxjava2:rxjava:2.1.14')
+	// https://mvnrepository.com/artifact/io.jmnarloch/rxjava-spring-boot-starter
+	compile group: 'io.jmnarloch', name: 'rxjava-spring-boot-starter', version: '2.0.0'
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	runtime('mysql:mysql-connector-java')
+
+	runtime('org.springframework.boot:spring-boot-devtools')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
