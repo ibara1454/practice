@@ -1,13 +1,13 @@
 package com.example.demo.controller;
 
-import javax.websocket.server.PathParam;
-
 import java.util.*;
 import com.example.demo.entity.Customer;
 import com.example.demo.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +27,11 @@ public class CustomerController {
      * @return    specified customer
      * @exception Exception
      */
-    @GetMapping(path = "/:id")
-    public Customer show(@PathParam("id") Integer id) {
-        return customerService.findOne(id).get();
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Customer> show(@PathVariable Integer id) {
+        return customerService.findOne(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
     }
 
     /**
