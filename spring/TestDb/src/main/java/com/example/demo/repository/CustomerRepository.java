@@ -8,6 +8,27 @@ import com.example.demo.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-    Optional<Customer> findById(Integer id);
+    /**
+     * @param id
+     * @return
+     */
+    Optional<Customer> findOne(Integer id);
+
+    /**
+     * Saves the given {@link Customer}
+     *
+     * @param customer
+     * @return
+     */
+    <T extends Customer> T save(T customer);
+
+    default Optional<Customer> safeSave(Customer customer) {
+        try {
+            return Optional.of(save(customer));
+        } catch(Exception ex) {
+            return Optional.empty();
+        }
+    }
+
     List<Customer> findAll();
 }
