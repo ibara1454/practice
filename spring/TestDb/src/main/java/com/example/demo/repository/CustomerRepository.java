@@ -12,7 +12,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
      * @param id
      * @return
      */
-    Optional<Customer> findOne(Integer id);
+    Optional<Customer> findById(Integer id);
 
     /**
      * Saves the given {@link Customer}
@@ -22,6 +22,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
      */
     <T extends Customer> T save(T customer);
 
+    /**
+     * Save customer by using a safe way
+     *
+     * @param customer
+     * @return optional of customer
+     */
     default Optional<Customer> safeSave(Customer customer) {
         try {
             return Optional.of(save(customer));
