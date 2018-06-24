@@ -1,9 +1,3 @@
-INSERT INTO customers (id, name) VALUES
-    (1, 'Taro Yafu'),
-    (2, 'Jiro Yafu'),
-    (3, 'Saburo Yafu'),
-    (4, 'Shiro Yahu');
-
 INSERT INTO items (id, name, price) VALUES
     (1, 'ビュンビュンチョッパー1 worst', 10000),
     (2, 'ビュンビュンチョッパー2 bad', 20000),
