@@ -1,0 +1,9 @@
+spring.datasource.url: jdbc:h2:mem:local-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE;MODE=MySQL
+spring.datasource.driverClassName: org.h2.Driver
+spring.datasource.username: sa
+spring.datasource.password:
+spring.datasource.sqlScriptEncoding: UTF-8
+spring.h2.console.enabled: true
+# Set ddl-auto to 'none' if using schema.sql
+# See https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+spring.jpa.hibernate.ddl-auto: none

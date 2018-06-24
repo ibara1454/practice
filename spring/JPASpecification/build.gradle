@@ -1,0 +1,49 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.0'
+	// `hibernate-jpamodelgen` auto generates meta-data class into `build` directory,
+	// see https://www.thoughts-on-java.org/static-metamodel/
+	// Alternative of maven,
+	// see https://www.thoughts-on-java.org/hibernate-tips-automatically-add-metamodel-classes-project/
+	compileOnly group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: '5.3.1.Final'
+
+	runtime('com.h2database:h2')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+// Add sourcepath to meta-data class to resolve syntax check error message of importing,
+// see https://stackoverflow.com/questions/44511945/maven-how-can-i-use-build-helper-maven-plugin-in-gradle
+// and https://docs.gradle.org/3.3/userguide/java_plugin.html#sec:java_source_sets
+sourceSets {
+	main {
+		java {
+			srcDirs 'build/classes/java/main/'
+		}
+	}
+}
